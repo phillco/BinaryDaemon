@@ -39,6 +39,9 @@
             this.label1 = new System.Windows.Forms.Label( );
             this.watchFileDialog = new System.Windows.Forms.OpenFileDialog( );
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader( );
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader( );
+            this.startStopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.refreshTimer = new System.Windows.Forms.Timer( this.components );
             this.listContextMenu.SuspendLayout( );
             this.SuspendLayout( );
             // 
@@ -46,13 +49,14 @@
             // 
             this.lvWatchers.Columns.AddRange( new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
+            this.columnHeader4,
             this.columnHeader3,
             this.columnHeader2} );
             this.lvWatchers.ContextMenuStrip = this.listContextMenu;
             this.lvWatchers.FullRowSelect = true;
             this.lvWatchers.Location = new System.Drawing.Point( 22, 46 );
             this.lvWatchers.Name = "lvWatchers";
-            this.lvWatchers.Size = new System.Drawing.Size( 419, 97 );
+            this.lvWatchers.Size = new System.Drawing.Size( 475, 97 );
             this.lvWatchers.TabIndex = 0;
             this.lvWatchers.UseCompatibleStateImageBehavior = false;
             this.lvWatchers.View = System.Windows.Forms.View.Details;
@@ -70,20 +74,23 @@
             // listContextMenu
             // 
             this.listContextMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
+            this.startStopToolStripMenuItem,
             this.editToolStripMenuItem} );
             this.listContextMenu.Name = "listContextMenu";
-            this.listContextMenu.Size = new System.Drawing.Size( 116, 26 );
+            this.listContextMenu.Size = new System.Drawing.Size( 141, 48 );
+            this.listContextMenu.Opening += new System.ComponentModel.CancelEventHandler( this.listContextMenu_Opening );
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size( 115, 22 );
+            this.editToolStripMenuItem.Size = new System.Drawing.Size( 140, 22 );
             this.editToolStripMenuItem.Text = "Edit...";
             this.editToolStripMenuItem.Click += new System.EventHandler( this.editToolStripMenuItem_Click );
             // 
             // btnNewWatcher
             // 
-            this.btnNewWatcher.Location = new System.Drawing.Point( 343, 12 );
+            this.btnNewWatcher.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.btnNewWatcher.Location = new System.Drawing.Point( 399, 12 );
             this.btnNewWatcher.Name = "btnNewWatcher";
             this.btnNewWatcher.Size = new System.Drawing.Size( 98, 25 );
             this.btnNewWatcher.TabIndex = 1;
@@ -110,13 +117,32 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "On Change";
-            this.columnHeader3.Width = 153;
+            this.columnHeader3.Width = 125;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Status";
+            this.columnHeader4.Width = 74;
+            // 
+            // startStopToolStripMenuItem
+            // 
+            this.startStopToolStripMenuItem.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.startStopToolStripMenuItem.Name = "startStopToolStripMenuItem";
+            this.startStopToolStripMenuItem.Size = new System.Drawing.Size( 140, 22 );
+            this.startStopToolStripMenuItem.Text = "StartStop";
+            this.startStopToolStripMenuItem.Click += new System.EventHandler( this.startStopToolStripMenuItem_Click );
+            // 
+            // refreshTimer
+            // 
+            this.refreshTimer.Enabled = true;
+            this.refreshTimer.Interval = 1000;
+            this.refreshTimer.Tick += new System.EventHandler( this.refreshTimer_Tick );
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size( 453, 157 );
+            this.ClientSize = new System.Drawing.Size( 509, 155 );
             this.Controls.Add( this.label1 );
             this.Controls.Add( this.btnNewWatcher );
             this.Controls.Add( this.lvWatchers );
@@ -142,6 +168,9 @@
         private System.Windows.Forms.ContextMenuStrip listContextMenu;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ToolStripMenuItem startStopToolStripMenuItem;
+        private System.Windows.Forms.Timer refreshTimer;
     }
 }
 
