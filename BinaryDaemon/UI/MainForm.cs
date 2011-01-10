@@ -21,12 +21,13 @@ namespace BinaryDaemon.UI
         {
             List<Watcher> watchers = new List<Watcher>( WatcherController.Watchers );
 
-            lvWatchers.Items.Clear();
+            lvWatchers.Items.Clear( );
             foreach ( Watcher w in watchers )
             {
-                string[] columns = { w.File.Name, w.LastModified.ToShortTimeString()};
-
-                lvWatchers.Items.Add( new ListViewItem( columns) );
+                string[] columns = { w.File.Name, w.GetOnChangeString(), w.LastModified.ToShortTimeString( ) };
+                ListViewItem item = new ListViewItem( columns );
+                item.Tag = w;
+                lvWatchers.Items.Add( item );
             }
 
         }
@@ -35,13 +36,19 @@ namespace BinaryDaemon.UI
         {
             if ( watchFileDialog.ShowDialog( ) == DialogResult.OK )
             {
-                Watcher newWatcher = new Watcher
+                WatcherController.SaveWatcher( new Watcher
                 {
-                    File = new FileInfo( watchFileDialog.FileName )
-                };
-                new WatcherOptionsForm( newWatcher ).ShowDialog( );
+                    File = new FileInfo( watchFileDialog.FileName ),
+                    RestartWhenChanged = true
+                });
                 UpdateState( );
             }
+        }
+
+        private void editToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            if ( lvWatchers.SelectedItems.Count > 0 )
+                new WatcherOptionsForm( (Watcher) lvWatchers.SelectedItems[0].Tag ).ShowDialog();
         }
     }
 }

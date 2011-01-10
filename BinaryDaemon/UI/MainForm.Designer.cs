@@ -28,21 +28,29 @@
         /// </summary>
         private void InitializeComponent( )
         {
+            this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( MainForm ) );
             this.lvWatchers = new System.Windows.Forms.ListView( );
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader( );
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader( );
+            this.listContextMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.btnNewWatcher = new System.Windows.Forms.Button( );
             this.label1 = new System.Windows.Forms.Label( );
             this.watchFileDialog = new System.Windows.Forms.OpenFileDialog( );
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader( );
+            this.listContextMenu.SuspendLayout( );
             this.SuspendLayout( );
             // 
             // lvWatchers
             // 
             this.lvWatchers.Columns.AddRange( new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
+            this.columnHeader3,
             this.columnHeader2} );
-            this.lvWatchers.Location = new System.Drawing.Point( 22, 43 );
+            this.lvWatchers.ContextMenuStrip = this.listContextMenu;
+            this.lvWatchers.FullRowSelect = true;
+            this.lvWatchers.Location = new System.Drawing.Point( 22, 46 );
             this.lvWatchers.Name = "lvWatchers";
             this.lvWatchers.Size = new System.Drawing.Size( 419, 97 );
             this.lvWatchers.TabIndex = 0;
@@ -57,7 +65,21 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Last Changed";
-            this.columnHeader2.Width = 120;
+            this.columnHeader2.Width = 89;
+            // 
+            // listContextMenu
+            // 
+            this.listContextMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
+            this.editToolStripMenuItem} );
+            this.listContextMenu.Name = "listContextMenu";
+            this.listContextMenu.Size = new System.Drawing.Size( 116, 26 );
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size( 115, 22 );
+            this.editToolStripMenuItem.Text = "Edit...";
+            this.editToolStripMenuItem.Click += new System.EventHandler( this.editToolStripMenuItem_Click );
             // 
             // btnNewWatcher
             // 
@@ -85,11 +107,16 @@
             this.watchFileDialog.Filter = "EXE files|*.exe|All files|*.*";
             this.watchFileDialog.Title = "Choose an EXE to watch...";
             // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "On Change";
+            this.columnHeader3.Width = 153;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size( 453, 161 );
+            this.ClientSize = new System.Drawing.Size( 453, 157 );
             this.Controls.Add( this.label1 );
             this.Controls.Add( this.btnNewWatcher );
             this.Controls.Add( this.lvWatchers );
@@ -98,6 +125,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "BinaryDeamon";
+            this.listContextMenu.ResumeLayout( false );
             this.ResumeLayout( false );
             this.PerformLayout( );
 
@@ -111,6 +139,9 @@
         private System.Windows.Forms.Button btnNewWatcher;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.OpenFileDialog watchFileDialog;
+        private System.Windows.Forms.ContextMenuStrip listContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }
 
