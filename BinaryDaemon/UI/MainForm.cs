@@ -28,7 +28,7 @@ namespace BinaryDaemon.UI
             lvWatchers.Items.Clear( );
             foreach ( Watcher w in watchers )
             {
-                string[] columns = { w.File.Name, w.GetStatus( ), w.GetOnChangeString( ), w.LastModified.ToShortTimeString( ) };
+                string[] columns = { w.File.Name, w.GetStatus( ), w.GetOnChangeString( ), w.GetLastChangedString() };
                 ListViewItem item = new ListViewItem( columns );
                 item.Tag = w;
                 item.Selected = selected.Contains( w );
@@ -41,11 +41,7 @@ namespace BinaryDaemon.UI
         {
             if ( watchFileDialog.ShowDialog( ) == DialogResult.OK )
             {
-                WatcherController.SaveWatcher( new Watcher
-                {
-                    File = new FileInfo( watchFileDialog.FileName ),
-                    RestartWhenChanged = true
-                } );
+                WatcherController.SaveWatcher( new Watcher( new FileInfo( watchFileDialog.FileName ) ) );
                 UpdateState( );
             }
         }
