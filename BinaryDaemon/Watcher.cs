@@ -16,11 +16,32 @@ namespace BinaryDaemon
 
         public bool RestartWhenChanged { get; set; }
 
+        public Process Process
+        {
+            get
+            {
+                if ( cachedProcess == null )
+                    cachedProcess = FindRunningProcess( );
+
+                return cachedProcess;
+            }
+        }
+
+        public bool IsProcessRunning
+        {
+            get
+            {
+                return ( Process != null );
+            }
+        }
+
         private Thread WorkThread;
 
         private FileSystemWatcher fileWatcher = new FileSystemWatcher( );
 
         private bool RestartInvoked = false;
+
+        private Process cachedProcess;
 
         public Watcher( FileInfo file )
         {
@@ -33,6 +54,18 @@ namespace BinaryDaemon
             Start( );
         }
 
+        private Process FindRunningProcess( )
+        {
+            Console.WriteLine( "Finding..." );
+            foreach ( Process p in Process.GetProcesses( ) )
+            {
+                if ( p.ProcessName.StartsWith( File.Name.Substring( 0, File.Name.Length - File.Extension.Length ) ) )
+                    return p;
+            }
+
+            return null;
+        }
+
         private void RestartApplication( )
         {
             if ( !RestartWhenChanged )
@@ -42,18 +75,17 @@ namespace BinaryDaemon
             Thread.Sleep( 200 );
             LastModified = DateTime.Now;
 
-            // Kill the old process...
-            foreach ( Process p in Process.GetProcesses( ) )
+            Process process = Process;
+            
+            if ( process != null )
             {
-                if ( p.ProcessName.StartsWith( File.Name.Substring( 0, File.Name.Length - File.Extension.Length ) ) )
-                    p.Kill( );
-            }
+                // Kill the old process...
+                process.Kill( );
 
-            // ...and start it again.
-            using ( Process newProcess = new Process( ) )
-            {
-                newProcess.StartInfo.FileName = File.FullName;
-                newProcess.Start( );
+                // ...and start it again.
+                cachedProcess = new Process( );
+                cachedProcess.StartInfo.FileName = File.FullName;
+                cachedProcess.Start( );
             }
 
             RestartInvoked = false;
@@ -94,7 +126,7 @@ namespace BinaryDaemon
         public string GetStatus( )
         {
             if ( IsRunning( ) )
-                return "Running";
+                return "Watching";
             else
                 return "Stopped";
         }
