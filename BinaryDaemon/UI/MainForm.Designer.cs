@@ -32,15 +32,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( MainForm ) );
             this.lvWatchers = new System.Windows.Forms.ListView( );
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader( );
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader( );
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader( );
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader( );
             this.listContextMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
+            this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator( );
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.btnNewWatcher = new System.Windows.Forms.Button( );
             this.label1 = new System.Windows.Forms.Label( );
             this.watchFileDialog = new System.Windows.Forms.OpenFileDialog( );
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader( );
-            this.columnHeader4 = new System.Windows.Forms.ColumnHeader( );
-            this.startStopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.refreshTimer = new System.Windows.Forms.Timer( this.components );
             this.listContextMenu.SuspendLayout( );
             this.SuspendLayout( );
@@ -66,6 +68,16 @@
             this.columnHeader1.Text = "File";
             this.columnHeader1.Width = 163;
             // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Status";
+            this.columnHeader4.Width = 74;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "On Change";
+            this.columnHeader3.Width = 125;
+            // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Last Changed";
@@ -74,16 +86,38 @@
             // listContextMenu
             // 
             this.listContextMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
-            this.startStopToolStripMenuItem,
+            this.restartToolStripMenuItem,
+            this.stopToolStripMenuItem,
+            this.toolStripSeparator1,
             this.editToolStripMenuItem} );
             this.listContextMenu.Name = "listContextMenu";
-            this.listContextMenu.Size = new System.Drawing.Size( 141, 48 );
+            this.listContextMenu.Size = new System.Drawing.Size( 181, 98 );
             this.listContextMenu.Opening += new System.ComponentModel.CancelEventHandler( this.listContextMenu_Opening );
+            // 
+            // restartToolStripMenuItem
+            // 
+            this.restartToolStripMenuItem.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size( 180, 22 );
+            this.restartToolStripMenuItem.Text = "Restart program";
+            this.restartToolStripMenuItem.Click += new System.EventHandler( this.restartToolStripMenuItem_Click );
+            // 
+            // stopToolStripMenuItem
+            // 
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size( 180, 22 );
+            this.stopToolStripMenuItem.Text = "Stop program";
+            this.stopToolStripMenuItem.Click += new System.EventHandler( this.stopToolStripMenuItem_Click );
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size( 177, 6 );
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size( 140, 22 );
+            this.editToolStripMenuItem.Size = new System.Drawing.Size( 180, 22 );
             this.editToolStripMenuItem.Text = "Edit...";
             this.editToolStripMenuItem.Click += new System.EventHandler( this.editToolStripMenuItem_Click );
             // 
@@ -113,24 +147,6 @@
             // 
             this.watchFileDialog.Filter = "EXE files|*.exe|All files|*.*";
             this.watchFileDialog.Title = "Choose an EXE to watch...";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "On Change";
-            this.columnHeader3.Width = 125;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Status";
-            this.columnHeader4.Width = 74;
-            // 
-            // startStopToolStripMenuItem
-            // 
-            this.startStopToolStripMenuItem.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.startStopToolStripMenuItem.Name = "startStopToolStripMenuItem";
-            this.startStopToolStripMenuItem.Size = new System.Drawing.Size( 140, 22 );
-            this.startStopToolStripMenuItem.Text = "StartStop";
-            this.startStopToolStripMenuItem.Click += new System.EventHandler( this.startStopToolStripMenuItem_Click );
             // 
             // refreshTimer
             // 
@@ -169,8 +185,10 @@
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ToolStripMenuItem startStopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.Timer refreshTimer;
+        private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

@@ -16,7 +16,7 @@ namespace BinaryDaemon
 
         public bool RestartWhenChanged { get; set; }
 
-        public Process Process
+        private Process Process
         {
             get
             {
@@ -35,11 +35,9 @@ namespace BinaryDaemon
             }
         }
 
-        private Thread WorkThread;
-
         private FileSystemWatcher fileWatcher = new FileSystemWatcher( );
 
-        private bool RestartInvoked = false;
+        private bool ChangedNoticed = false;
 
         private Process cachedProcess;
 
@@ -49,14 +47,13 @@ namespace BinaryDaemon
             this.RestartWhenChanged = true;
             fileWatcher.Path = File.DirectoryName;
             fileWatcher.Filter = File.Name;
-            fileWatcher.EnableRaisingEvents = IsRunning( );
+            fileWatcher.EnableRaisingEvents = true;
             fileWatcher.Changed += new FileSystemEventHandler( fileWatcher_Changed );
-            Start( );
         }
 
         private Process FindRunningProcess( )
         {
-            Console.WriteLine( "Finding..." );
+            Console.WriteLine( "Searching for " + File.Name + " in the process list..." );
             foreach ( Process p in Process.GetProcesses( ) )
             {
                 if ( p.ProcessName.StartsWith( File.Name.Substring( 0, File.Name.Length - File.Extension.Length ) ) )
@@ -66,80 +63,55 @@ namespace BinaryDaemon
             return null;
         }
 
-        private void RestartApplication( )
+        public void StopProcess( )
         {
-            if ( !RestartWhenChanged )
-                return;
-
-            // Wait a bit to allow multiple FileWatcher notifications to clear.
-            Thread.Sleep( 200 );
-            LastModified = DateTime.Now;
-
-            Process process = Process;
-            
-            if ( process != null )
+            if ( IsProcessRunning )
             {
-                // Kill the old process...
-                process.Kill( );
-
-                // ...and start it again.
-                cachedProcess = new Process( );
-                cachedProcess.StartInfo.FileName = File.FullName;
-                cachedProcess.Start( );
+                Process.Kill( );
+                cachedProcess = null;
             }
+        }
 
-            RestartInvoked = false;
+        public void StartProcess( )
+        {
+            cachedProcess = new Process( );
+            cachedProcess.StartInfo.FileName = File.FullName;
+            cachedProcess.Start( );
+        }
+
+        public void RestartProcess( )
+        {
+            StopProcess( );
+            StartProcess( );
         }
 
         private void fileWatcher_Changed( object sender, FileSystemEventArgs e )
         {
-            RestartInvoked = true;
-        }
-
-        public void Start( )
-        {
-            if ( WorkThread == null )
-                WorkThread = new Thread( new ThreadStart( WatchLoop ) );
-
-            if ( WorkThread.ThreadState != System.Threading.ThreadState.Running )
-                WorkThread.Start( );
-
-            fileWatcher.EnableRaisingEvents = true;
-        }
-
-        public void Stop( )
-        {
-            if ( WorkThread != null )
+            Console.WriteLine( Environment.TickCount + " Change noticed!" );
+            if ( !ChangedNoticed )
             {
-                WorkThread.Abort( );
-                WorkThread = null;
+                ChangedNoticed = true;
+                new Thread( new ThreadStart( OnFileChanged ) ).Start( );
             }
-
-            fileWatcher.EnableRaisingEvents = false;
         }
 
-        public bool IsRunning( )
+        private void OnFileChanged( )
         {
-            return ( WorkThread != null && WorkThread.IsAlive );
+            Console.WriteLine( Environment.TickCount+ " Acting on it!" );
+
+            if ( RestartWhenChanged )
+                RestartProcess( );
+
+            Thread.Sleep( 500 );
+            ChangedNoticed = false;
         }
 
         public string GetStatus( )
         {
-            if ( IsRunning( ) )
-                return "Watching";
+            if ( IsProcessRunning )
+                return "Running";
             else
-                return "Stopped";
-        }
-
-        private void WatchLoop( )
-        {
-            while ( true )
-            {
-                Thread.Sleep( 50 );
-
-                if ( RestartInvoked )
-                    RestartApplication( );
-            }
+                return "Not Running";
         }
 
         public string GetOnChangeString( )

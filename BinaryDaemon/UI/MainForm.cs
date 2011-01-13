@@ -28,7 +28,7 @@ namespace BinaryDaemon.UI
             lvWatchers.Items.Clear( );
             foreach ( Watcher w in watchers )
             {
-                string[] columns = { w.File.Name, w.GetStatus( ), w.GetOnChangeString( ), w.GetLastChangedString() };
+                string[] columns = { w.File.Name, w.GetStatus( ), w.GetOnChangeString( ), w.GetLastChangedString( ) };
                 ListViewItem item = new ListViewItem( columns );
                 item.Tag = w;
                 item.Selected = selected.Contains( w );
@@ -75,27 +75,23 @@ namespace BinaryDaemon.UI
                 return;
             }
 
-            startStopToolStripMenuItem.Text = watcher.IsRunning( ) ? "Stop" : "Start";
-        }
-
-        private void startStopToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            Watcher watcher = getSelectedWatcher( );
-
-            if ( watcher != null )
-            {
-                if ( watcher.IsRunning( ) )
-                    watcher.Stop( );
-                else
-                    watcher.Start( );
-
-                UpdateState( );
-            }
+            restartToolStripMenuItem.Text = String.Format( "{0} program", watcher.IsProcessRunning ? "Restart" : "Start" );
+            stopToolStripMenuItem.Enabled = watcher.IsProcessRunning;
         }
 
         private void refreshTimer_Tick( object sender, EventArgs e )
         {
             UpdateState( );
+        }
+
+        private void restartToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            getSelectedWatcher( ).RestartProcess( );
+        }
+
+        private void stopToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            getSelectedWatcher( ).StopProcess( );
         }
     }
 }
