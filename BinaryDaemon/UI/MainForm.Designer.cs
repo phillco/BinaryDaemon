@@ -46,9 +46,16 @@
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader( );
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader( );
             this.panel2 = new System.Windows.Forms.Panel( );
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon( this.components );
+            this.notifyIconMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
+            this.showOrHideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.watchFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator( );
             this.listContextMenu.SuspendLayout( );
             this.panel1.SuspendLayout( );
             this.panel2.SuspendLayout( );
+            this.notifyIconMenu.SuspendLayout( );
             this.SuspendLayout( );
             // 
             // listContextMenu
@@ -180,6 +187,51 @@
             this.panel2.Size = new System.Drawing.Size( 509, 35 );
             this.panel2.TabIndex = 4;
             // 
+            // notifyIcon
+            // 
+            this.notifyIcon.ContextMenuStrip = this.notifyIconMenu;
+            this.notifyIcon.Icon = ( (System.Drawing.Icon) ( resources.GetObject( "notifyIcon.Icon" ) ) );
+            this.notifyIcon.Text = "BinaryDaemon";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler( this.notifyIcon_MouseClick );
+            // 
+            // notifyIconMenu
+            // 
+            this.notifyIconMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
+            this.showOrHideToolStripMenuItem,
+            this.watchFileToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.exitToolStripMenuItem} );
+            this.notifyIconMenu.Name = "notifyIconMenu";
+            this.notifyIconMenu.Size = new System.Drawing.Size( 159, 98 );
+            // 
+            // showOrHideToolStripMenuItem
+            // 
+            this.showOrHideToolStripMenuItem.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.showOrHideToolStripMenuItem.Name = "showOrHideToolStripMenuItem";
+            this.showOrHideToolStripMenuItem.Size = new System.Drawing.Size( 158, 22 );
+            this.showOrHideToolStripMenuItem.Text = "Show or Hide";
+            this.showOrHideToolStripMenuItem.Click += new System.EventHandler( this.showOrHideToolStripMenuItem_Click );
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size( 158, 22 );
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler( this.exitToolStripMenuItem_Click );
+            // 
+            // watchFileToolStripMenuItem
+            // 
+            this.watchFileToolStripMenuItem.Name = "watchFileToolStripMenuItem";
+            this.watchFileToolStripMenuItem.Size = new System.Drawing.Size( 158, 22 );
+            this.watchFileToolStripMenuItem.Text = "Watch file...";
+            this.watchFileToolStripMenuItem.Click += new System.EventHandler( this.watchFileToolStripMenuItem_Click );
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size( 155, 6 );
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
@@ -191,10 +243,12 @@
             this.Icon = ( (System.Drawing.Icon) ( resources.GetObject( "$this.Icon" ) ) );
             this.Name = "MainForm";
             this.Text = "BinaryDeamon";
+            this.Resize += new System.EventHandler( this.MainForm_Resize );
             this.listContextMenu.ResumeLayout( false );
             this.panel1.ResumeLayout( false );
             this.panel2.ResumeLayout( false );
             this.panel2.PerformLayout( );
+            this.notifyIconMenu.ResumeLayout( false );
             this.ResumeLayout( false );
 
         }
@@ -217,6 +271,12 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ContextMenuStrip notifyIconMenu;
+        private System.Windows.Forms.ToolStripMenuItem showOrHideToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem watchFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

@@ -19,6 +19,8 @@ namespace BinaryDaemon.UI
 
         private void UpdateState( )
         {
+            showOrHideToolStripMenuItem.Text = Visible ? "Hide" : "Show";
+
             List<Watcher> watchers = new List<Watcher>( WatcherController.Watchers );
 
             List<Watcher> selected = new List<Watcher>( );
@@ -34,7 +36,6 @@ namespace BinaryDaemon.UI
                 item.Selected = selected.Contains( w );
                 lvWatchers.Items.Add( item );
             }
-
         }
 
         private void btnNewWatcher_Click( object sender, EventArgs e )
@@ -92,6 +93,53 @@ namespace BinaryDaemon.UI
         private void stopToolStripMenuItem_Click( object sender, EventArgs e )
         {
             getSelectedWatcher( ).StopProcess( );
+        }
+
+        private void exitToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            Close( );
+        }
+
+        private void MainForm_Resize( object sender, EventArgs e )
+        {
+            if ( this.WindowState == FormWindowState.Minimized )
+                Hide( );
+        }
+
+        private void ShowFromTray( )
+        {
+            Show( );
+            WindowState = FormWindowState.Normal;
+            BringToFront( );
+        }
+
+        private void ToggleVisibility( )
+        {
+            if ( Visible )
+                Hide( );
+            else
+                ShowFromTray( );
+        }
+
+        private void showOrHideToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            ToggleVisibility( );
+        }
+
+        private void notifyIcon_MouseClick( object sender, MouseEventArgs e )
+        {
+            if ( e.Button == MouseButtons.Left )
+                ToggleVisibility( );
+        }
+
+        private void watchFileToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            if ( watchFileDialog.ShowDialog( ) == DialogResult.OK )
+            {
+                WatcherController.SaveWatcher( new Watcher( new FileInfo( watchFileDialog.FileName ) ) );
+                UpdateState( );
+                ShowFromTray( );
+            }
         }
     }
 }
