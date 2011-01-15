@@ -34,11 +34,12 @@
             this.label1 = new System.Windows.Forms.Label( );
             this.tbParameters = new System.Windows.Forms.TextBox( );
             this.label2 = new System.Windows.Forms.Label( );
-            this.pictureBox1 = new System.Windows.Forms.PictureBox( );
             this.cbCopyFile = new System.Windows.Forms.CheckBox( );
             this.btnSave = new System.Windows.Forms.Button( );
             this.btnCancel = new System.Windows.Forms.Button( );
-            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
+            this.tbCopyToFolder = new System.Windows.Forms.TextBox( );
+            this.btnBrowse = new System.Windows.Forms.Button( );
+            this.copyFolderBrowser = new System.Windows.Forms.FolderBrowserDialog( );
             this.SuspendLayout( );
             // 
             // lblWatchingFile
@@ -46,7 +47,7 @@
             this.lblWatchingFile.AutoSize = true;
             this.lblWatchingFile.Font = new System.Drawing.Font( "Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.lblWatchingFile.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblWatchingFile.Location = new System.Drawing.Point( 55, 18 );
+            this.lblWatchingFile.Location = new System.Drawing.Point( 13, 12 );
             this.lblWatchingFile.Name = "lblWatchingFile";
             this.lblWatchingFile.Size = new System.Drawing.Size( 81, 16 );
             this.lblWatchingFile.TabIndex = 0;
@@ -57,17 +58,18 @@
             this.cbRestartProcess.AutoSize = true;
             this.cbRestartProcess.Checked = true;
             this.cbRestartProcess.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbRestartProcess.Location = new System.Drawing.Point( 85, 65 );
+            this.cbRestartProcess.Location = new System.Drawing.Point( 43, 65 );
             this.cbRestartProcess.Name = "cbRestartProcess";
             this.cbRestartProcess.Size = new System.Drawing.Size( 71, 17 );
             this.cbRestartProcess.TabIndex = 1;
             this.cbRestartProcess.Text = "Restart it";
             this.cbRestartProcess.UseVisualStyleBackColor = true;
+            this.cbRestartProcess.CheckedChanged += new System.EventHandler( this.cbRestartProcess_CheckedChanged );
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point( 55, 40 );
+            this.label1.Location = new System.Drawing.Point( 13, 38 );
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size( 126, 13 );
             this.label1.TabIndex = 2;
@@ -75,47 +77,36 @@
             // 
             // tbParameters
             // 
-            this.tbParameters.Enabled = false;
-            this.tbParameters.Location = new System.Drawing.Point( 106, 109 );
+            this.tbParameters.Location = new System.Drawing.Point( 64, 109 );
             this.tbParameters.Multiline = true;
             this.tbParameters.Name = "tbParameters";
-            this.tbParameters.Size = new System.Drawing.Size( 176, 64 );
+            this.tbParameters.Size = new System.Drawing.Size( 222, 64 );
             this.tbParameters.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point( 103, 89 );
+            this.label2.Location = new System.Drawing.Point( 61, 89 );
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size( 136, 13 );
             this.label2.TabIndex = 4;
             this.label2.Text = "Command-line parameters:";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::BinaryDaemon.Properties.Resources.file_extension_exe;
-            this.pictureBox1.Location = new System.Drawing.Point( 15, 18 );
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size( 32, 32 );
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            // 
             // cbCopyFile
             // 
             this.cbCopyFile.AutoSize = true;
-            this.cbCopyFile.Enabled = false;
-            this.cbCopyFile.Location = new System.Drawing.Point( 85, 195 );
+            this.cbCopyFile.Location = new System.Drawing.Point( 43, 195 );
             this.cbCopyFile.Name = "cbCopyFile";
             this.cbCopyFile.Size = new System.Drawing.Size( 145, 17 );
             this.cbCopyFile.TabIndex = 6;
             this.cbCopyFile.Text = "Copy it to another folder";
             this.cbCopyFile.UseVisualStyleBackColor = true;
+            this.cbCopyFile.CheckedChanged += new System.EventHandler( this.cbCopyFile_CheckedChanged );
             // 
             // btnSave
             // 
             this.btnSave.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.btnSave.Location = new System.Drawing.Point( 124, 239 );
+            this.btnSave.Location = new System.Drawing.Point( 159, 264 );
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size( 75, 23 );
             this.btnSave.TabIndex = 7;
@@ -127,12 +118,33 @@
             // 
             this.btnCancel.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point( 205, 239 );
+            this.btnCancel.Location = new System.Drawing.Point( 240, 264 );
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size( 75, 23 );
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // tbCopyToFolder
+            // 
+            this.tbCopyToFolder.Location = new System.Drawing.Point( 64, 218 );
+            this.tbCopyToFolder.Name = "tbCopyToFolder";
+            this.tbCopyToFolder.Size = new System.Drawing.Size( 180, 21 );
+            this.tbCopyToFolder.TabIndex = 9;
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Location = new System.Drawing.Point( 250, 217 );
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size( 35, 23 );
+            this.btnBrowse.TabIndex = 10;
+            this.btnBrowse.Text = "...";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler( this.btnBrowse_Click );
+            // 
+            // copyFolderBrowser
+            // 
+            this.copyFolderBrowser.Description = "Select a folder to copy the program to.";
             // 
             // WatcherOptionsForm
             // 
@@ -140,11 +152,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size( 298, 274 );
+            this.ClientSize = new System.Drawing.Size( 333, 299 );
+            this.Controls.Add( this.btnBrowse );
+            this.Controls.Add( this.tbCopyToFolder );
             this.Controls.Add( this.btnCancel );
             this.Controls.Add( this.btnSave );
             this.Controls.Add( this.cbCopyFile );
-            this.Controls.Add( this.pictureBox1 );
             this.Controls.Add( this.label2 );
             this.Controls.Add( this.tbParameters );
             this.Controls.Add( this.label1 );
@@ -156,7 +169,6 @@
             this.MaximizeBox = false;
             this.Name = "WatcherOptionsForm";
             this.Text = "Filename here";
-            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).EndInit( );
             this.ResumeLayout( false );
             this.PerformLayout( );
 
@@ -169,9 +181,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbParameters;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox cbCopyFile;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox tbCopyToFolder;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.FolderBrowserDialog copyFolderBrowser;
     }
 }

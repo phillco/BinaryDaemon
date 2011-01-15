@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="Watcher.cs" />
     <Compile Include="WatcherController.cs" />
+    <Compile Include="WatcherOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="binarydaemon_icon.ico" />

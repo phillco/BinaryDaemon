@@ -28,7 +28,7 @@ namespace BinaryDaemon.UI
             lvWatchers.Items.Clear( );
             foreach ( Watcher w in watchers )
             {
-                string[] columns = { w.File.Name, w.GetStatus( ), w.GetOnChangeString( ), w.GetLastChangedString( ) };
+                string[] columns = { w.File.Name, w.GetStatus( ), w.Options.GetOnChangeString( ), w.GetLastChangedString( ) };
                 ListViewItem item = new ListViewItem( columns );
                 item.Tag = w;
                 item.Selected = selected.Contains( w );

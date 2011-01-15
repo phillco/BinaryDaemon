@@ -14,7 +14,7 @@ namespace BinaryDaemon
 
         public DateTime LastModified { get; set; }
 
-        public bool RestartWhenChanged { get; set; }
+        public WatcherOptions Options;
 
         private Process Process
         {
@@ -44,7 +44,7 @@ namespace BinaryDaemon
         public Watcher( FileInfo file )
         {
             this.File = file;
-            this.RestartWhenChanged = true;
+            this.Options = WatcherOptions.Defaults;
             fileWatcher.Path = File.DirectoryName;
             fileWatcher.Filter = File.Name;
             fileWatcher.EnableRaisingEvents = true;
@@ -76,6 +76,7 @@ namespace BinaryDaemon
         {
             cachedProcess = new Process( );
             cachedProcess.StartInfo.FileName = File.FullName;
+            cachedProcess.StartInfo.Arguments = Options.CommandLineArgs;
             cachedProcess.Start( );
         }
 
@@ -99,8 +100,13 @@ namespace BinaryDaemon
         {
             Console.WriteLine( Environment.TickCount+ " Acting on it!" );
 
-            if ( RestartWhenChanged )
+            if ( Options.RestartOnChange )
                 RestartProcess( );
+
+            if ( Options.CopyOnChange )
+            {
+                File.CopyTo( Path.Combine( Options.PathToCopyTo, File.Name ), true );
+            }
 
             Thread.Sleep( 500 );
             ChangedNoticed = false;
@@ -112,15 +118,7 @@ namespace BinaryDaemon
                 return "Running";
             else
                 return "Not Running";
-        }
-
-        public string GetOnChangeString( )
-        {
-            if ( RestartWhenChanged )
-                return "Restart";
-            else
-                return "Do Nothing";
-        }
+        }       
 
         public string GetLastChangedString( )
         {
