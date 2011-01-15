@@ -32,12 +32,12 @@
             this.lblWatchingFile = new System.Windows.Forms.Label( );
             this.cbRestartProcess = new System.Windows.Forms.CheckBox( );
             this.label1 = new System.Windows.Forms.Label( );
-            this.tbParameters = new System.Windows.Forms.TextBox( );
+            this.tbRestartParameters = new System.Windows.Forms.TextBox( );
             this.label2 = new System.Windows.Forms.Label( );
             this.cbCopyFile = new System.Windows.Forms.CheckBox( );
             this.btnSave = new System.Windows.Forms.Button( );
             this.btnCancel = new System.Windows.Forms.Button( );
-            this.tbCopyToFolder = new System.Windows.Forms.TextBox( );
+            this.tbCopyPath = new System.Windows.Forms.TextBox( );
             this.btnBrowse = new System.Windows.Forms.Button( );
             this.copyFolderBrowser = new System.Windows.Forms.FolderBrowserDialog( );
             this.SuspendLayout( );
@@ -75,13 +75,13 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "When the file changes...";
             // 
-            // tbParameters
+            // tbRestartParameters
             // 
-            this.tbParameters.Location = new System.Drawing.Point( 64, 109 );
-            this.tbParameters.Multiline = true;
-            this.tbParameters.Name = "tbParameters";
-            this.tbParameters.Size = new System.Drawing.Size( 222, 64 );
-            this.tbParameters.TabIndex = 3;
+            this.tbRestartParameters.Location = new System.Drawing.Point( 64, 109 );
+            this.tbRestartParameters.Multiline = true;
+            this.tbRestartParameters.Name = "tbRestartParameters";
+            this.tbRestartParameters.Size = new System.Drawing.Size( 222, 64 );
+            this.tbRestartParameters.TabIndex = 3;
             // 
             // label2
             // 
@@ -125,12 +125,12 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // tbCopyToFolder
+            // tbCopyPath
             // 
-            this.tbCopyToFolder.Location = new System.Drawing.Point( 64, 218 );
-            this.tbCopyToFolder.Name = "tbCopyToFolder";
-            this.tbCopyToFolder.Size = new System.Drawing.Size( 180, 21 );
-            this.tbCopyToFolder.TabIndex = 9;
+            this.tbCopyPath.Location = new System.Drawing.Point( 64, 218 );
+            this.tbCopyPath.Name = "tbCopyPath";
+            this.tbCopyPath.Size = new System.Drawing.Size( 180, 21 );
+            this.tbCopyPath.TabIndex = 9;
             // 
             // btnBrowse
             // 
@@ -154,12 +154,12 @@
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size( 333, 299 );
             this.Controls.Add( this.btnBrowse );
-            this.Controls.Add( this.tbCopyToFolder );
+            this.Controls.Add( this.tbCopyPath );
             this.Controls.Add( this.btnCancel );
             this.Controls.Add( this.btnSave );
             this.Controls.Add( this.cbCopyFile );
             this.Controls.Add( this.label2 );
-            this.Controls.Add( this.tbParameters );
+            this.Controls.Add( this.tbRestartParameters );
             this.Controls.Add( this.label1 );
             this.Controls.Add( this.cbRestartProcess );
             this.Controls.Add( this.lblWatchingFile );
@@ -179,12 +179,12 @@
         private System.Windows.Forms.Label lblWatchingFile;
         private System.Windows.Forms.CheckBox cbRestartProcess;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tbParameters;
+        private System.Windows.Forms.TextBox tbRestartParameters;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox cbCopyFile;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.TextBox tbCopyToFolder;
+        private System.Windows.Forms.TextBox tbCopyPath;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.FolderBrowserDialog copyFolderBrowser;
     }

@@ -26,24 +26,24 @@ namespace BinaryDaemon.UI
 
         private void UpdateState( )
         {
-            tbParameters.Enabled = cbRestartProcess.Checked;
-            btnBrowse.Enabled = tbCopyToFolder.Enabled = cbCopyFile.Checked;
+            tbRestartParameters.Enabled = cbRestartProcess.Checked;
+            btnBrowse.Enabled = tbCopyPath.Enabled = cbCopyFile.Checked;
         }
 
         private void LoadFromOptions( WatcherOptions options )
         {
-            cbRestartProcess.Checked = options.RestartOnChange;
-            cbCopyFile.Checked = options.CopyOnChange;
-            tbParameters.Text = options.CommandLineArgs;
-            tbCopyToFolder.Text = options.PathToCopyTo;
+            cbRestartProcess.Checked = options.RestartEnabled;
+            cbCopyFile.Checked = options.CopyEnabled;
+            tbRestartParameters.Text = options.RestartParameters;
+            tbCopyPath.Text = options.CopyPath;
         }
 
         private void SaveToOptions( WatcherOptions options )
         {
-            options.RestartOnChange = cbRestartProcess.Checked;
-            options.CopyOnChange = cbCopyFile.Checked;
-            options.CommandLineArgs = tbParameters.Text;
-            options.PathToCopyTo = tbCopyToFolder.Text;
+            options.RestartEnabled = cbRestartProcess.Checked;
+            options.CopyEnabled = cbCopyFile.Checked;
+            options.RestartParameters = tbRestartParameters.Text;
+            options.CopyPath = tbCopyPath.Text;
         }
 
         private void btnSave_Click( object sender, EventArgs e )
@@ -67,7 +67,7 @@ namespace BinaryDaemon.UI
         {
             copyFolderBrowser.Description = "Choose a folder to copy " + watcher.File.Name + " to." + Environment.NewLine + "Any file with the same name will be overriden, if possible.";
             if ( copyFolderBrowser.ShowDialog( ) == DialogResult.OK )
-                tbCopyToFolder.Text = copyFolderBrowser.SelectedPath;
+                tbCopyPath.Text = copyFolderBrowser.SelectedPath;
         }
     }
 }

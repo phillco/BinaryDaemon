@@ -6,13 +6,13 @@ namespace BinaryDaemon
 {
     public class WatcherOptions
     {
-        public bool RestartOnChange;
+        public bool RestartEnabled;
 
-        public string CommandLineArgs;
+        public string RestartParameters;
 
-        public string PathToCopyTo;
+        public string CopyPath;
 
-        public bool CopyOnChange;
+        public bool CopyEnabled;
 
         public static WatcherOptions Defaults
         {
@@ -20,9 +20,9 @@ namespace BinaryDaemon
             {
                 return new WatcherOptions
                 {
-                    RestartOnChange = true,
-                    CommandLineArgs = "",
-                    CopyOnChange = false
+                    RestartEnabled = true,
+                    RestartParameters = "",
+                    CopyEnabled = false
                 };
             }
         }
@@ -31,15 +31,15 @@ namespace BinaryDaemon
         {
             string action = "";
 
-            if ( RestartOnChange )
+            if ( RestartEnabled )
                 action += "Restart";
 
-            if ( CopyOnChange )
+            if ( CopyEnabled )
             {
                 if ( action.Length > 0 )
                     action += ", ";
 
-                action += "Copy to " + PathToCopyTo;
+                action += "Copy to " + CopyPath;
             }
 
             if ( action.Length > 0)

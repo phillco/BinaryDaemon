@@ -76,7 +76,7 @@ namespace BinaryDaemon
         {
             cachedProcess = new Process( );
             cachedProcess.StartInfo.FileName = File.FullName;
-            cachedProcess.StartInfo.Arguments = Options.CommandLineArgs;
+            cachedProcess.StartInfo.Arguments = Options.RestartParameters;
             cachedProcess.Start( );
         }
 
@@ -99,13 +99,14 @@ namespace BinaryDaemon
         private void OnFileChanged( )
         {
             Console.WriteLine( Environment.TickCount+ " Acting on it!" );
+            LastModified = DateTime.Now;
 
-            if ( Options.RestartOnChange )
+            if ( Options.RestartEnabled )
                 RestartProcess( );
 
-            if ( Options.CopyOnChange )
+            if ( Options.CopyEnabled )
             {
-                File.CopyTo( Path.Combine( Options.PathToCopyTo, File.Name ), true );
+                File.CopyTo( Path.Combine( Options.CopyPath, File.Name ), true );
             }
 
             Thread.Sleep( 500 );
