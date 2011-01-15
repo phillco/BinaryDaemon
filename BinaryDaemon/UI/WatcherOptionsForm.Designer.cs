@@ -40,6 +40,7 @@
             this.tbCopyPath = new System.Windows.Forms.TextBox( );
             this.btnBrowse = new System.Windows.Forms.Button( );
             this.copyFolderBrowser = new System.Windows.Forms.FolderBrowserDialog( );
+            this.cbPlaySound = new System.Windows.Forms.CheckBox( );
             this.SuspendLayout( );
             // 
             // lblWatchingFile
@@ -106,7 +107,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.btnSave.Location = new System.Drawing.Point( 159, 264 );
+            this.btnSave.Location = new System.Drawing.Point( 143, 305 );
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size( 75, 23 );
             this.btnSave.TabIndex = 7;
@@ -118,7 +119,7 @@
             // 
             this.btnCancel.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point( 240, 264 );
+            this.btnCancel.Location = new System.Drawing.Point( 224, 305 );
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size( 75, 23 );
             this.btnCancel.TabIndex = 8;
@@ -146,13 +147,24 @@
             // 
             this.copyFolderBrowser.Description = "Select a folder to copy the program to.";
             // 
+            // cbPlaySound
+            // 
+            this.cbPlaySound.AutoSize = true;
+            this.cbPlaySound.Location = new System.Drawing.Point( 43, 259 );
+            this.cbPlaySound.Name = "cbPlaySound";
+            this.cbPlaySound.Size = new System.Drawing.Size( 143, 17 );
+            this.cbPlaySound.TabIndex = 11;
+            this.cbPlaySound.Text = "Play a notification sound";
+            this.cbPlaySound.UseVisualStyleBackColor = true;
+            // 
             // WatcherOptionsForm
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size( 333, 299 );
+            this.ClientSize = new System.Drawing.Size( 317, 340 );
+            this.Controls.Add( this.cbPlaySound );
             this.Controls.Add( this.btnBrowse );
             this.Controls.Add( this.tbCopyPath );
             this.Controls.Add( this.btnCancel );
@@ -187,5 +199,6 @@
         private System.Windows.Forms.TextBox tbCopyPath;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.FolderBrowserDialog copyFolderBrowser;
+        private System.Windows.Forms.CheckBox cbPlaySound;
     }
 }

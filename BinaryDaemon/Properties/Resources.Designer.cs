@@ -60,6 +60,12 @@ namespace BinaryDaemon.Properties {
             }
         }
         
+        internal static System.IO.UnmanagedMemoryStream ChangedSound {
+            get {
+                return ResourceManager.GetStream("ChangedSound", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap file_extension_exe {
             get {
                 object obj = ResourceManager.GetObject("file_extension_exe", resourceCulture);

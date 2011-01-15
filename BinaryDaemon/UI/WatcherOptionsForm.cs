@@ -36,6 +36,7 @@ namespace BinaryDaemon.UI
             cbCopyFile.Checked = options.CopyEnabled;
             tbRestartParameters.Text = options.RestartParameters;
             tbCopyPath.Text = options.CopyPath;
+            cbPlaySound.Checked = options.PlaySoundEnabled;
         }
 
         private void SaveToOptions( WatcherOptions options )
@@ -44,6 +45,7 @@ namespace BinaryDaemon.UI
             options.CopyEnabled = cbCopyFile.Checked;
             options.RestartParameters = tbRestartParameters.Text;
             options.CopyPath = tbCopyPath.Text;
+            options.PlaySoundEnabled = cbPlaySound.Checked;
         }
 
         private void btnSave_Click( object sender, EventArgs e )

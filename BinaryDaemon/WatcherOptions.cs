@@ -14,6 +14,8 @@ namespace BinaryDaemon
 
         public bool CopyEnabled;
 
+        public bool PlaySoundEnabled;
+
         public static WatcherOptions Defaults
         {
             get
@@ -22,7 +24,8 @@ namespace BinaryDaemon
                 {
                     RestartEnabled = true,
                     RestartParameters = "",
-                    CopyEnabled = false
+                    CopyEnabled = false,
+                    PlaySoundEnabled = false
                 };
             }
         }

@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Media;
 
 namespace BinaryDaemon
 {
@@ -67,7 +68,11 @@ namespace BinaryDaemon
         {
             if ( IsProcessRunning )
             {
-                Process.Kill( );
+                try
+                {
+                    Process.Kill( );
+                }
+                catch ( InvalidOperationException ) { }
                 cachedProcess = null;
             }
         }
@@ -98,8 +103,8 @@ namespace BinaryDaemon
 
         private void OnFileChanged( )
         {
-            Console.WriteLine( Environment.TickCount+ " Acting on it!" );
-            LastModified = DateTime.Now;
+            Console.WriteLine( Environment.TickCount + " Acting on it!" );
+            LastModified = DateTime.Now;            
 
             if ( Options.RestartEnabled )
                 RestartProcess( );
@@ -107,6 +112,12 @@ namespace BinaryDaemon
             if ( Options.CopyEnabled )
             {
                 File.CopyTo( Path.Combine( Options.CopyPath, File.Name ), true );
+            }
+
+            if ( Options.PlaySoundEnabled )
+            {
+                using ( SoundPlayer simpleSound = new SoundPlayer( Properties.Resources.ChangedSound ) )
+                    simpleSound.Play( );
             }
 
             Thread.Sleep( 500 );
@@ -119,7 +130,7 @@ namespace BinaryDaemon
                 return "Running";
             else
                 return "Not Running";
-        }       
+        }
 
         public string GetLastChangedString( )
         {

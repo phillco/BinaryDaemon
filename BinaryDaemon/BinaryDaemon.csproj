@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="binarydaemon_icon.ico" />
+    <None Include="Resources\ChangedSound.WAV" />
     <None Include="Resources\file_extension_exe.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
